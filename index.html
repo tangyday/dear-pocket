@@ -83,7 +83,7 @@ function renderLedger(){
  if(!data)return;
  const root=$('entries'), filter=$('filter').value;
  const expenses=['extra','living','fun'];
- const rows=[...data.entries].filter(e=>!selectedDate||e.date===selectedDate).filter(e=>filter==='all'||(filter==='expense'?expenses.includes(e.kind):e.kind===filter)).sort((a,b)=>b.date.localeCompare(a.date));
+ const rows=[...data.entries].reverse().filter(e=>!selectedDate||e.date===selectedDate).filter(e=>filter==='all'||(filter==='expense'?expenses.includes(e.kind):e.kind===filter)).sort((a,b)=>b.date.localeCompare(a.date));
  $('entryCount').textContent=rows.length+'건'; $('ledgerTotal').textContent=won(rows.filter(e=>expenses.includes(e.kind)).reduce((sum,e)=>sum+e.amount,0));root.replaceChildren();
  const labels={extra:'특별지출 · 예정 포함',living:'생활비',fun:'쇼핑',income:'추가 수입',saved:'저축'};const icons={living:'🍽',fun:'🛍',extra:'💳',income:'💰',saved:'🐷'};let last='';
  if(!rows.length){const empty=document.createElement('p');empty.className='empty';empty.textContent='아직 기록이 없어요. 작은 소비부터 기록해 보세요 ♡';root.append(empty);}
